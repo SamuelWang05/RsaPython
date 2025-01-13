@@ -23,21 +23,9 @@ def genPrime(minNum, maxNum):
     
     return prime
 
-def findGCD(num1, num2):
-    gcd = 1
-    minVal = min(num1,num2)
-    maxVal = max(num1, num2)
-
-    for i in range (2, minVal):
-        if(i % minVal == 0 and i % maxVal == 0):
-            gcd = i
-    
-    return gcd
-
-
 def genPublic(phiN):
-    for i in range(3, phiN):
-        if(findGCD(i, phiN) == 1):
+    for i in range(3, phiN - 1):
+        if(math.gcd(i, phiN) == 1):
             return i
 
 def genPriv(e, phiN):
@@ -51,6 +39,10 @@ def genPriv(e, phiN):
 
 p = genPrime(1000, 5000)
 q = genPrime(1000, 5000)
+
+# Generate new number if they are equal
+while(p == q):
+    q = genPrime(1000, 5000)
 
 n = p * q
 
@@ -76,3 +68,9 @@ cipherText = [pow(ch, e, n) for ch in messageEncode] # pow(c, e, n) --> (c ^ e) 
 messageDecode = [pow(ch, d, n) for ch in cipherText]
 
 finalMessage = "".join(chr(ch) for ch in messageDecode)
+
+print(message)
+print(messageEncode)
+print(cipherText)
+print(messageDecode)
+print(finalMessage)
